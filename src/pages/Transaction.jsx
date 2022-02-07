@@ -1,9 +1,9 @@
-import { airdrop,makeTransaction } from '../solana'
+import { airdrop,makeTransaction } from '../solana/solana'
 import { wallet as walletAtom } from '../atoms'
 import { useRecoilValue } from 'recoil'
 import { useState } from 'react'
 
-export function PaymentForm() {
+function Transaction() {
   const wallet = useRecoilValue(walletAtom)
   const [receiver,setreceiver] = useState({wallet:'',amount:0})
   const handleAirdrop = async (e)=> {
@@ -17,7 +17,7 @@ export function PaymentForm() {
   }
     return (
       <>
-        <div className="">
+        <div className="mt-3">
           <button className="button is-secondary mb-3"  onClick={()=>{setreceiver(pv=>({...pv,wallet: wallet.publicKey.toString()}))}}>
             paste my wallet
           </button>
@@ -53,3 +53,5 @@ export function PaymentForm() {
         
       );
 }
+
+export default Transaction;

@@ -1,4 +1,4 @@
-import { connectWallet } from "../solana";
+import { connectWallet } from "../solana/solana";
 import { useRecoilState } from "recoil";
 import { wallet as walletAtom } from "../atoms";
 

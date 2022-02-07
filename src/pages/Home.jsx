@@ -1,11 +1,21 @@
 import { ConnectButton } from "../components/connectButton";
 import { wallet as walletAtom } from "../atoms";
 import { useRecoilValue } from "recoil";
-import { PaymentForm } from '../components/paymentForm';
+import { Link } from 'react-router-dom'
 function Home() {
   const wallet = useRecoilValue(walletAtom);
-  
-  return <div className="mt-2">{!!wallet ? <PaymentForm /> : <ConnectButton />}</div>;
+  return (
+    <>
+      <div className="mt-2">
+        {!!wallet? (
+          <>
+            <Link to='/Transaction'> <a>transaction</a> </Link>
+            <Link to='/Payment'> <a>Payment</a> </Link>
+          </>
+        ) :<ConnectButton/>}
+      </div>
+    </>
+  );
 }
 
 export default Home;
