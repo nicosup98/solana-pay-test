@@ -1,5 +1,8 @@
-import { Transaction,SystemProgram,PublicKey,LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { Transaction,SystemProgram,PublicKey,LAMPORTS_PER_SOL, Keypair,sendAndConfirmTransaction } from '@solana/web3.js'
 import { getConnection } from './connection'
+import { createTransaction,encodeURL,parseURL  } from "@solana/pay"
+import { getProvider } from './provider'
+import { BigNumber } from 'bignumber.js'
 
 export async function airdrop(transactionData) {
     console.log({transactionData});
@@ -42,3 +45,27 @@ export async function makeTransaction(transactionData){
     }
 
 }
+
+export function createURLPayment({amount, label, message}){
+    //const {amount, label, message}= paymentData;
+    const provider = getProvider();
+    const recipient = provider.publicKey
+    const reference = new Keypair().publicKey
+    const url = encodeURL({amount: new BigNumber(amount),label , message, recipient, reference})
+    return url
+
+}
+
+export function makePayment(encodedURL){
+    const provider = getProvider();
+    const connection = getConnection();
+    const {amount, label, message, recipient, reference} = getUrlInfo(encodedURL);
+    const payer = provider.publicKey
+    const tx = createTransaction(connection,payer,recipient,new BigNumber(amount),{reference})
+    sendAndConfirmTransaction(connection,tx,[provider])
+}
+
+export function getUrlInfo(url){
+    return parseURL(url);
+}
+
