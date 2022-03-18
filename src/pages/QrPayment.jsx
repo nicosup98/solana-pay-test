@@ -2,18 +2,35 @@ import { useRecoilValue } from "recoil";
 import { qrData as qrDataAtom } from "../atoms";
 import QrImage from "../components/QrImage";
 import { createQR } from "@solana/pay";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 function QrPayment() {
   const url = useRecoilValue(qrDataAtom);
   const qrRef = useRef(null);
+  const [qrSt, setQr] = useState(null);
   useEffect(() => {
-    const qr = createQR(url);
+    const qr = createQR(url, 200);
     qr.append(qrRef.current);
-  });
+    setQr(qr);
+  }, []);
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(url);
+  };
+
+  const downloadQr= ()=>{
+    qrSt.download()
+  }
   return (
     <QrImage>
-      <div ref={qrRef} />
-      <span>{url}</span>
+      <div className="box">
+        <div ref={qrRef} />
+        <a className="is-size-5  mr-2" onClick={copyLink}>
+          copy link
+        </a>
+        <a className="is-size-5 ml-2" onClick={downloadQr}>
+          download qr
+        </a>
+      </div>
     </QrImage>
   );
 }

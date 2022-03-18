@@ -31,9 +31,6 @@ function Payment() {
       clearForm();
       navigate('/QrPayment')
     };
-    const handleCloseDialog = () => {
-      setQr({ url: null, img: null });
-    };
     return (
       <>
         <form
@@ -101,9 +98,6 @@ function Payment() {
     const [qrData, setQrData] = useState("");
     const [modal, setModal] = useState(false);
     const [urlInfo, setUrlInfo] = useState(null);
-    const handleCloseDialog = () => {
-      setModal(false);
-    };
     const handleScan = (data, err) => {
       //!err && !!data ? setQrData(data.text) : console.error(err);
       if (!!data) {
@@ -137,17 +131,11 @@ function Payment() {
             </button>
           </div>
         </div>
-        <Dialog closeDialog={handleCloseDialog} open={modal}>
-          <>
-            <label className="label">monto</label>
-            <span>{urlInfo && urlInfo.amount.toNumber()}</span>
-          </>
-        </Dialog>
       </>
     );
   };
   return (
-    <>
+    <div className="box mt-2">
       <div className="control">
         <label className="radio">
           <input
@@ -175,7 +163,7 @@ function Payment() {
         </label>
       </div>
       {mode === "sender" ? <SenderContainer /> : <ReceiverContainer />}
-    </>
+    </div>
   );
 }
 
