@@ -1,7 +1,7 @@
 import { createURLPayment, getUrlInfo } from "../solana/solana";
 import { useState } from "react";
 import QrScanner from "../components/QrScanner";
-import Dialog from "../components/Dialog";
+import QrDataView from "../components/QrDataView";
 import { qrData as qrDataAtom } from '../atoms'
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom'
@@ -96,7 +96,6 @@ function Payment() {
 
   const ReceiverContainer = () => {
     const [qrData, setQrData] = useState("");
-    const [modal, setModal] = useState(false);
     const [urlInfo, setUrlInfo] = useState(null);
     const handleScan = (data, err) => {
       //!err && !!data ? setQrData(data.text) : console.error(err);
@@ -110,7 +109,6 @@ function Payment() {
     const handlePayment = () => {
       const info = getUrlInfo(qrData);
       setUrlInfo(info);
-      setModal(true);
     };
     return (
       <>
@@ -131,6 +129,7 @@ function Payment() {
             </button>
           </div>
         </div>
+        {!!urlInfo && (< QrDataView qrData={urlInfo} onAcept={()=>{console.log('do payment')}} />)}
       </>
     );
   };
