@@ -1,4 +1,4 @@
-import { createURLPayment, getUrlInfo } from "../solana/solana";
+import { createURLPayment, getUrlInfo, makePayment } from "../solana/solana";
 import { useState } from "react";
 import QrScanner from "../components/QrScanner";
 import QrDataView from "../components/QrDataView";
@@ -124,12 +124,14 @@ function Payment() {
               className="input"
               placeholder="url payment"
             />
-            <button className="button is-light" onClick={handlePayment}>
+            <button className="button is-light mt-2" onClick={handlePayment}>
               aceptar
             </button>
           </div>
         </div>
-        {!!urlInfo && (< QrDataView qrData={urlInfo} onAcept={()=>{console.log('do payment')}} />)}
+        <div className="mt-2">
+        {!!urlInfo && (< QrDataView qrData={urlInfo} onAcept={()=>{makePayment(qrData)}} />)}
+        </div>
       </>
     );
   };

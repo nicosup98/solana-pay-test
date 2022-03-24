@@ -38,7 +38,7 @@ export async function makeTransaction(transactionData){
         }));
        const signed = await provider.signTransaction(transaction);
        const signature = await connection.sendRawTransaction(signed.serialize());
-       await connection.confirmTransaction(signature);
+        await connection.confirmTransaction(signature);
         alert('transaction done')
     } catch (error) {
         console.error(error);
@@ -56,13 +56,22 @@ export function createURLPayment({amount, label, message}){
 
 }
 
-export function makePayment(encodedURL){
+export async function makePayment(encodedURL){
     const provider = getProvider();
     const connection = getConnection();
     const {amount, label, message, recipient, reference} = getUrlInfo(encodedURL);
     const payer = provider.publicKey
-    const tx = createTransaction(connection,payer,recipient,new BigNumber(amount),{reference})
-    sendAndConfirmTransaction(connection,tx,[provider])
+    const tx = await createTransaction(connection,payer,recipient,new BigNumber(amount),{reference})
+    const recentBlockHash = await connection.getRecentBlockhash();
+    tx.recentBlockhash = recentBlockHash.blockhash
+    tx.feePayer = payer
+    console.log({tx});
+    const signed = await provider.signTransaction(tx);
+    const signature = await connection.sendRawTransaction(signed.serialize());
+    await connection.confirmTransaction(signature);
+
+    
+    console.log('payment done');
 }
 
 export function getUrlInfo(url){
