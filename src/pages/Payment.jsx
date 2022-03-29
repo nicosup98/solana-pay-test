@@ -130,7 +130,7 @@ function Payment() {
           </div>
         </div>
         <div className="mt-2">
-        {!!urlInfo && (< QrDataView qrData={urlInfo} onAcept={()=>{makePayment(qrData)}} />)}
+        {!!urlInfo && (< QrDataView qrData={urlInfo} onAccept={()=>makePayment(qrData)} onSuccess={()=>{setUrlInfo("")}} />)}
         </div>
       </>
     );

@@ -13,6 +13,7 @@ function Home() {
             <Link to='/Payment'> Payment </Link>
           </>
         ) :<ConnectButton/>}
+
       </div>
     </>
   );
