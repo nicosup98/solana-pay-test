@@ -1,9 +1,9 @@
 import { QrReader } from 'react-qr-reader';
 
 // this have an error
-function QrScanner({onResult}) {
+function QrScanner({scanFn}) {
     return (
-        <QrReader onResult={onResult} scanDelay={1000}/>
+        <QrReader onResult={scanFn} scanDelay={500}/>
     )
 }
 

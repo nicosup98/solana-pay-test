@@ -23,7 +23,7 @@ function QrPayment() {
   };
 
   const downloadQr = () => {
-    qrSt.download();
+    qrSt.download({extension:'jpeg'});
     NotificationManager.success("", "qr downloaded", 2000);
 
   };
