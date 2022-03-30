@@ -9,10 +9,11 @@ function Home() {
       <div className="mt-2">
         {!!wallet? (
           <>
-            <Link to='/Transaction'> <a>transaction</a> </Link>
-            <Link to='/Payment'> <a>Payment</a> </Link>
+            <Link to='/Transaction'> transaction </Link>
+            <Link to='/Payment'> Payment </Link>
           </>
         ) :<ConnectButton/>}
+
       </div>
     </>
   );

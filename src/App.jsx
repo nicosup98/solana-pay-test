@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Transaction from './pages/Transaction'
 import Payment from './pages/Payment'
+import QrPayment from './pages/QrPayment'
 function App() {
 
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Transaction" element={<Transaction />} />
         <Route path="/Payment" element={<Payment />} />
+        <Route path="/QrPayment" element={<QrPayment />} />
       </Routes>
     </div>
   )
