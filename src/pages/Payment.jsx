@@ -5,7 +5,6 @@ import QrDataView from "../components/QrDataView";
 import { qrData as qrDataAtom } from '../atoms'
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom'
-import { NotificationContainer } from 'react-notifications'
 
 function Payment() {
   // mode to switch between sender and receiver
@@ -132,9 +131,8 @@ function Payment() {
           </div>
         </div>
         <div className="mt-2">
-        {!!urlInfo && (< QrDataView qrData={urlInfo} onAccept={()=>makePayment(qrData)} onSuccess={()=>{setUrlInfo("")}} />)}
+        {!!urlInfo && (< QrDataView qrData={urlInfo} onAccept={()=>makePayment(qrData)} onSuccess={()=>{alert('Payment accepted');setUrlInfo(null);setQrData('')}} />)}
         </div>
-        <NotificationContainer />
       </>
     );
   };
