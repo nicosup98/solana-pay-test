@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import 'bulma/css/bulma.min.css';
-import 'react-notifications/lib/notifications.css';
 import { BrowserRouter } from "react-router-dom";
 import {
   RecoilRoot

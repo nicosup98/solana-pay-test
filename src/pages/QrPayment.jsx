@@ -3,10 +3,6 @@ import { qrData as qrDataAtom } from "../atoms";
 import QrImage from "../components/QrImage";
 import { createQR } from "@solana/pay";
 import { useEffect, useRef, useState } from "react";
-import {
-  NotificationManager,
-  NotificationContainer,
-} from "react-notifications";
 function QrPayment() {
   const url = useRecoilValue(qrDataAtom);
   const qrRef = useRef(null);
@@ -19,13 +15,12 @@ function QrPayment() {
 
   const copyLink = () => {
     navigator.clipboard.writeText(url);
-    NotificationManager.info("", "Link copied to clipboard", 2000);
+    alert("Link copied to clipboard");
   };
 
   const downloadQr = () => {
     qrSt.download({extension:'jpeg'});
-    NotificationManager.success("", "qr downloaded", 2000);
-
+    alert("QR image downloaded");
   };
   return (
     <>
@@ -40,7 +35,6 @@ function QrPayment() {
           </a>
         </div>
       </QrImage>
-      <NotificationContainer/>
     </>
   );
 }

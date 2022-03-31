@@ -1,4 +1,3 @@
-import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 function QrDataView({ qrData, onAccept, onSuccess }) {
   const { amount, label, message } = qrData;
@@ -7,7 +6,6 @@ function QrDataView({ qrData, onAccept, onSuccess }) {
     console.log({response});
     if (response) {
       console.log('success');
-      NotificationManager.success('', 'Payment accepted', 2000);
       onSuccess()
     }   
   }
